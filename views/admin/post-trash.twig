@@ -1,8 +1,8 @@
 {% extends 'templates/admin.twig' %}
 
-{% block title %}All List Publish Post - {% endblock %}
+{% block title %}All List Trash Post - {% endblock %}
 
-{% block pageheader %}All List Publish Post{% endblock %}
+{% block pageheader %}All List Trash Post{% endblock %}
 
 {% block content %}
     <div class="box box-danger">
@@ -16,8 +16,8 @@
                 {% for article in article %}
                 <tr>
                     <td>{{ article.title }}</td>
-                    <td><a href="{{ article.id }}"><i class="fa fa-pencil"></i></a></td>
-                    <td><a href="/post/{{ article.id }}/delete"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="/post/{{ article.id }}/restore"><i class="fa fa-undo"></i></a></td>
+                    <td><a href="/post/{{ article.id }}/hard-delete"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 {% endfor %}
             </table>
