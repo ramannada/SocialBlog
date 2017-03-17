@@ -33,7 +33,7 @@ class PostController extends Controller
 			$article->content 	= $request['content'];
 			$article->save();
 
-			return $response->withRedirect($this->router->pathFor('post.add'));
+			return $response->withRedirect($this->router->pathFor('post.list'));
 		} else {
 			$_SESSION['errors'] = $this->validator->errors();
 			$_SESSION['old']	= $request;
@@ -99,9 +99,9 @@ class PostController extends Controller
 	*/
 	public function getTrashList($request, $response)
 	{
-		$data['trash'] = PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
+		$article = PostModel::orderBy('id', 'DESC')->where('deleted', 1)->get();
 
-		return $this->view->render($response);
+		return $this->view->render($response, 'admin/post-trash.twig', ['article' => $article]);
 	}
 
 	/**
@@ -124,7 +124,7 @@ class PostController extends Controller
 		$article = PostModel::find($args['id']);
 		$article->delete();
 
-		return $response->withRedirect($this->router->pathFor());
+		return $response->withRedirect($this->router->pathFor('post.trash'));
 	}
 
 
@@ -137,6 +137,6 @@ class PostController extends Controller
 		$article->deleted = 0;
 		$article->update();
 
-		return $response->withRedirect($this->router->pathFor());
+		return $response->withRedirect($this->router->pathFor('post.trash'));
 	}
 }
