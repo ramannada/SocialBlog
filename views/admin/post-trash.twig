@@ -10,15 +10,15 @@
             <table class="table table-bordered">
                 <tr>
                     <th>Title</th>
-                    <th style="width: 40px">Edit</th>
+                    <th style="width: 40px">Restore</th>
                     <th style="width: 40px">Delete</th>
                 </tr>
                 {% for article in article %}
-                    <tr>
-                        <td>{{ article.title }}</td>
-                        <td><a href="{{ article.id }}"><i class="fa fa-pencil"></i></a></td>
-                        <td><a href="/post/{{ article.id }}/delete"><i class="fa fa-trash"></i></a></td>
-                    </tr>
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td><a href="{{ article.id }}"><i class="fa fa-pencil"></i></a></td>
+                    <td><a href="/post/{{ article.id }}/delete"><i class="fa fa-trash"></i></a></td>
+                </tr>
                 {% endfor %}
             </table>
         </div>
