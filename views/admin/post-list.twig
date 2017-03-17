@@ -13,11 +13,13 @@
                     <th style="width: 40px">Edit</th>
                     <th style="width: 40px">Delete</th>
                 </tr>
+                {% for article in article %}
                 <tr>
-                    <td>test</td>
-                    <td><i class="fa fa-pencil"></i></td>
-                    <td><i class="fa fa-trash"></i></td>
+                    <td>{{ article.title }}</td>
+                    <td><a href="{{ article.id }}"><i class="fa fa-pencil"></i></a></td>
+                    <td><a href="/post/{{ article.id }}/delete"><i class="fa fa-trash"></i></a></td>
                 </tr>
+                {% endfor %}
             </table>
         </div>
         <div class="box-footer clearfix">
