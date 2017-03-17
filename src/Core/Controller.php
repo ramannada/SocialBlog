@@ -5,7 +5,7 @@ namespace Core;
 /**
 * 
 */
-abstract class COntroller
+abstract class Controller
 {
     private $container;
 

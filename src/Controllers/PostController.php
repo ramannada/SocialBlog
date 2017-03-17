@@ -3,19 +3,19 @@
 namespace App\Controllers;
 
 use Core\Controller;
-use App\Models\ArticleModel;
+use App\Models\PostModel;
 
 /**
 * 
 */
-class ArticleController extends Controller
+class PostController extends Controller
 {
 	/**
 	* 
 	*/
 	public function getAdd($request, $response)
 	{
-		return $this->view->render($response);
+		return $this->view->render($response, 'admin/article-add.twig');
 	}
 	
 	/**
@@ -28,19 +28,18 @@ class ArticleController extends Controller
 		$this->validator->rule('required', ['title', 'content']);
 
 		if ($this->validator->validate()) {
-			$article = new ArticleModel;
+			$article = new PostModel;
 			$article->title 	= $request['title'];
 			$article->content 	= $request['content'];
 			$article->save();
 
-			return $response->withRedirect($this->$router->pathFor());
+			return $response->withRedirect($this->router->pathFor('post.add'));
 		} else {
 			$_SESSION['errors'] = $this->validator->errors();
 			$_SESSION['old']	= $request;
 
-			return $response->withRedirect($this->$router->pathFor());
+			return $response->withRedirect($this->router->pathFor('post.add'));
 		}
-
 	}
 
 	/**
@@ -48,7 +47,7 @@ class ArticleController extends Controller
 	*/
 	public static function getList()
 	{
-		return ArticleModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
+		return PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
 	}
 
 	/**
@@ -56,7 +55,7 @@ class ArticleController extends Controller
 	*/
 	public function getListAdmin($request, $response)
 	{
-		$article = self::getArticleList();
+		$article = self::getList();
 
 		return $this->view->render($response);
 	}
@@ -66,7 +65,7 @@ class ArticleController extends Controller
 	*/
 	public function getEdit($request, $response, $args)
 	{
-		$article = ArticleModel::where('id', $args(['id'])->first());
+		$article = PostModel::where('id', $args(['id'])->first());
 
 		return $this->view->render($response);
 	}
@@ -100,7 +99,7 @@ class ArticleController extends Controller
 	*/
 	public function getTrashList($request, $response)
 	{
-		$data['trash'] = ArticleModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
+		$data['trash'] = PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
 
 		return $this->view->render($response);
 	}
@@ -110,7 +109,7 @@ class ArticleController extends Controller
 	*/
 	public function setSoftdDelete($request, $response, $args)
 	{
-		$article = ArticleModel::find($args['id']);
+		$article = PostModel::find($args['id']);
 		$article->deleted = 1;
 		$article->update();
 
@@ -122,7 +121,7 @@ class ArticleController extends Controller
 	*/
 	public function setHardDelete($request, $response, $args)
 	{
-		$article = ArticleModel::find($args['id']);
+		$article = PostModel::find($args['id']);
 		$article->delete();
 
 		return $response->withRedirect($this->router->pathFor());
@@ -134,7 +133,7 @@ class ArticleController extends Controller
 	*/
 	public function setRestore($request, $response, $args)
 	{
-		$article = ArticleModel::find($args['id']);
+		$article = PostModel::find($args['id']);
 		$article->deleted = 0;
 		$article->update();
 

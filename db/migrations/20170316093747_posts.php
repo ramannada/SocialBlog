@@ -32,7 +32,6 @@ class Posts extends AbstractMigration
               ->addColumn('content', 'text')
               ->addTimestamps()
               ->addColumn('deleted', 'integer', ['default' => 0, 'limit' => 1, 'signed' =>false])
-              ->addColumn('user_id', 'integer', ['signed' => false])
               ->addIndex(['title'], ['unique' => true])
               ->create();
     }
