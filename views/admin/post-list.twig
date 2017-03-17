@@ -1,0 +1,33 @@
+{% extends 'templates/admin.twig' %}
+
+{% block title %}List All Publish Post - {% endblock %}
+
+{% block pageheader %}List All Publish Post{% endblock %}
+
+{% block content %}
+    <div class="box box-danger">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Title</th>
+                    <th style="width: 40px">Edit</th>
+                    <th style="width: 40px">Delete</th>
+                </tr>
+                <tr>
+                    <td>test</td>
+                    <td><i class="fa fa-pencil"></i></td>
+                    <td><i class="fa fa-trash"></i></td>
+                </tr>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>    
+{% endblock %}
