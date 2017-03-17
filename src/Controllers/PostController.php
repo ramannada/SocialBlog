@@ -15,7 +15,7 @@ class PostController extends Controller
 	*/
 	public function getAdd($request, $response)
 	{
-		return $this->view->render($response, 'admin/article-add.twig');
+		return $this->view->render($response, 'admin/post-add.twig');
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class PostController extends Controller
 	{
 		$article = self::getList();
 
-		return $this->view->render($response);
+		return $this->view->render($response, 'admin/post-list.twig', ['article' => $article]);
 	}
 
 	/**
@@ -113,7 +113,7 @@ class PostController extends Controller
 		$article->deleted = 1;
 		$article->update();
 
-		return $response->withRedirect($this->router->pathFor());
+		return $response->withRedirect($this->router->pathFor('post.list'));
 	}
 
 	/**
